@@ -45,14 +45,15 @@ def stat_api_call():
 
 def main():
     logging.info('[SCHEDULE]: Start')
-    text = stat_api_call()
     users = run_query('SELECT chat_id FROM users')
 
     logging.info(f'[SCHEDULE]: Send for {len(users)} users')
-    for user in users:
-        chat_id = user[0]
-        api_request(f'{TELEGRAM_API_URL}/sendMessage',
-                    {'chat_id': chat_id, 'text': text}, None)
+    if len(users) != 0:
+        text = stat_api_call()
+        for user in users:
+            chat_id = user[0]
+            api_request(f'{TELEGRAM_API_URL}/sendMessage',
+                        {'chat_id': chat_id, 'text': text}, None)
 
 
 schedule.every(30).minutes.do(main)

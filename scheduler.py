@@ -56,7 +56,7 @@ def main():
                         {'chat_id': chat_id, 'text': text}, None)
 
 
-schedule.every(30).minutes.do(main)
+schedule.every(5).minutes.do(main)
 
 if __name__ == '__main__':
     print('Scheduler started')

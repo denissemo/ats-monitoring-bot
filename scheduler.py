@@ -37,7 +37,10 @@ def stat_api_call():
     data = api_request(STAT_API_URL, None, {'BOT-AUTH': STAT_API_TOKEN})
     not_used = list(filter(lambda x: not x['last_used'], data))
 
-    result = 'Не было звонков за послений час у брендов:\n'
+    if len(not_used) == 0:
+        return 'Все в порядке!'
+
+    result = 'Не было звонков за последних полчаса у брендов:\n'
     for item in not_used:
         result += f'\t\t- {item["name"]}\n'
     return result
